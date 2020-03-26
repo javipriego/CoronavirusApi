@@ -17,7 +17,8 @@ namespace WebApiCorona.Configuration
         private static string GetEndpointName(this IConfiguration configuration) => configuration["Swagger:Endpoint:Name"];
         private static string GetSecurity(this IConfiguration configuration) => configuration["Swagger:Security"];
 
-        /// <inheritdoc />
+      
+     
         public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services, IConfiguration config)
         {
             services
@@ -46,7 +47,7 @@ namespace WebApiCorona.Configuration
             return services;
         }
 
-        /// <inheritdoc />
+      
         public static IApplicationBuilder UseSwaggerConfiguration(this IApplicationBuilder app, IConfiguration config)
         {
             app.UseSwagger();

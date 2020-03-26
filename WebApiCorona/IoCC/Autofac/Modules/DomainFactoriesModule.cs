@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Domain.Contract;
 using Domain.Factories;
-using Domain.Services;
 
 namespace WebApiCorona.IoCC.Autofac.Modules
 {

@@ -16,7 +16,7 @@ namespace Infra.Repository.Cached
         
         public async Task<TEntity> Get(Guid id)
         {
-            return _cachedList.Find(x => x.Id == id);
+            return  _cachedList.Find(x => x.Id == id);
         }
 
         public async Task<List<TEntity>> GetAll()

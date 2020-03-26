@@ -1,12 +1,11 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using WebApi.Controllers;
 using WebApiCorona.Configuration;
-using WebApiCorona.IoCC.Autofac.Modules;
 
 namespace WebApiCorona
 {
@@ -27,8 +26,8 @@ namespace WebApiCorona
             services
                 .AddMvc()
                 .AddApplicationPart(assembly)
-                .AddControllersAsServices()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .AddControllersAsServices();
+
 
             services
                 .AddSwaggerConfiguration(Configuration)
@@ -37,18 +36,15 @@ namespace WebApiCorona
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterModule<DomainServicesModule>();
-            containerBuilder.RegisterModule<DomainFactoriesModule>();
-            containerBuilder.RegisterModule<ApplicationServicesModule>();
-            containerBuilder.RegisterModule<RepositoriesModule>();
-            containerBuilder.RegisterModule<MappersModule>();
+            var hostAssembly = typeof(Startup).Assembly;
+            containerBuilder.RegisterAssemblyModules(hostAssembly);
         }
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsEnvironment("Local"))
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -60,9 +56,15 @@ namespace WebApiCorona
 
             app.UseHttpsRedirection();
 
-            app
-                .UseMvc()
-                .UseSwaggerConfiguration(Configuration); 
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseRouting();
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            app.UseSwaggerConfiguration(Configuration);
         }
     }
 }

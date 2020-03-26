@@ -4,7 +4,6 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Services;
 
 namespace Application.Services
 {

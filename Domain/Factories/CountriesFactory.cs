@@ -71,8 +71,6 @@ namespace Domain.Factories
                     countries.Add(_countryFactory.Create("IT"));
                     countries.Add(_countryFactory.Create("PO"));
                     break;
-                default:
-                    break;
             }
 
             return countries;

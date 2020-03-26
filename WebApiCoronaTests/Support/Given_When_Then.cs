@@ -1,6 +1,4 @@
 ﻿using System;
-using Xunit;
-using Xunit.Sdk;
 
 namespace WebApiCoronaTests.Support
 {
@@ -9,8 +7,8 @@ namespace WebApiCoronaTests.Support
     {
         protected Given_When_Then()
         {
-            this.Given();
-            this.When();
+            Given();
+            When();
         }
 
         protected abstract void Given();
@@ -19,7 +17,7 @@ namespace WebApiCoronaTests.Support
 
         public void Dispose()
         {
-            this.CleanUp();
+            CleanUp();
         }
 
         protected virtual void CleanUp()
