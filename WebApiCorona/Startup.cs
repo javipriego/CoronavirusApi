@@ -28,7 +28,6 @@ namespace WebApiCorona
                 .AddApplicationPart(assembly)
                 .AddControllersAsServices();
 
-
             services
                 .AddSwaggerConfiguration(Configuration)
                 .AddOptions();
