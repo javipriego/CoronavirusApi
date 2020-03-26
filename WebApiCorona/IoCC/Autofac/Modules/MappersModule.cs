@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Application.Model;
+﻿using Application.Model;
 using Autofac;
 using AutoMapper;
 
